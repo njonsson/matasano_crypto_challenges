@@ -12,10 +12,9 @@ def define_spec_task(name, options={})
     RSpec::Core::RakeTask.new name do |t|
       t.rspec_opts ||= []
       t.rspec_opts << "--backtrace" if options[:backtrace]
-      unless options[:debug] == false
-        t.rspec_opts << '--require pry-debugger'
-      end
+      t.rspec_opts << '--require pry-debugger' unless options[:debug] == false
       t.rspec_opts << "--format #{options[:format]}" if options.key?(:format)
+      t.rspec_opts << '--no-profile' if options[:profile] == false
       t.pattern = options[:pattern] || %w(spec/*_spec.rb spec/**/*_spec.rb)
     end
   end
@@ -37,4 +36,5 @@ task :default => :spec
 # Support the 'gem test' command.
 define_spec_task :test, desc: '', backtrace: true,
                                   debug:     false,
-                                  format:    :progress
+                                  format:    :progress,
+                                  profile:   false
