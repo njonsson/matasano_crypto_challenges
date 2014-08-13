@@ -21,13 +21,13 @@ def define_spec_task(name, options={})
   end
 end
 
-define_spec_task :spec, :desc => 'Run specs'
+define_spec_task :spec, desc: 'Run specs'
 
 namespace :spec do
   uncommitted_specs = `git ls-files --modified --others *_spec.rb`.split("\n")
   desc = 'Run uncommitted specs'
   desc += ' (none)' if uncommitted_specs.empty?
-  define_spec_task :uncommitted, :desc => desc, :pattern => uncommitted_specs
+  define_spec_task :uncommitted, desc: desc, pattern: uncommitted_specs
 end
 
 desc 'Run specs'
@@ -35,6 +35,6 @@ task ''       => :spec
 task :default => :spec
 
 # Support the 'gem test' command.
-define_spec_task :test, :desc => '', :backtrace => true,
-                                     :debug => false,
-                                     :format => :progress
+define_spec_task :test, desc: '', backtrace: true,
+                                  debug:     false,
+                                  format:    :progress
