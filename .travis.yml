@@ -2,4 +2,4 @@ language: ruby
 bundler_args: --without debug tooling
 rvm:
   - 2.0.0
-script: "bundle exec rake test"
+script: "CODECLIMATE_REPO_TOKEN=183be6250ebf39d52ad93e462684ed3beba87485880d43a0200d10b63a3255ea bundle exec rake test"
