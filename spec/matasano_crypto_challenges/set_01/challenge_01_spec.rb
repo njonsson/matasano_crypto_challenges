@@ -5,7 +5,13 @@ describe MatasanoCryptoChallenges::Set01::Challenge01 do
 
   let(:challenge_01_class) { described_class }
 
-  specify {
-    expect(challenge_01.call).to eq('SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t')
-  }
+  describe '#base64_encode' do
+    let(:hexadecimal_string) {
+      '49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d'
+    }
+
+    specify('returns the expected Base-64 string') {
+      expect(challenge_01.base64_encode(hexadecimal_string)).to eq('SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t')
+    }
+  end
 end
