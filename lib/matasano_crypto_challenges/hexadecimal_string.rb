@@ -17,11 +17,11 @@ class MatasanoCryptoChallenges::HexadecimalString
     other.kind_of?(self.class) && (other.value == value)
   end
 
-  def ^(hexadecimal_string)
-    bytes = to_bytes.zip(hexadecimal_string.to_bytes).collect do |this, that|
-      this ^ that
+  def ^(other)
+    result_bytes = to_bytes.zip(other.to_bytes).collect do |bytes, other_bytes|
+      bytes ^ other_bytes
     end
-    self.class.from_bytes bytes
+    self.class.from_bytes result_bytes
   end
 
   def to_bytes

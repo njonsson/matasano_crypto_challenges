@@ -9,8 +9,8 @@ module MatasanoCryptoChallenges
 
       def base64_encode(hexadecimal_string)
         hexadecimal_string = HexadecimalString.new(hexadecimal_string)
-        base64_string = Base64String.from_bytes(hexadecimal_string.to_bytes)
-        base64_string.value
+        result = Base64String.from_bytes(hexadecimal_string.to_bytes)
+        result.value
       end
 
     end
