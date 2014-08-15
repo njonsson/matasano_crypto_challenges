@@ -61,7 +61,8 @@ describe MatasanoCryptoChallenges::HexadecimalString do
 
   describe '#^' do
     subject(:xor) {
-      hexadecimal_string_class.new('010201') ^ hexadecimal_string_class.new('020101')
+      hexadecimal_string_class.new('010201') ^
+        hexadecimal_string_class.new('020101')
     }
 
     let(:hexadecimal_string) { hexadecimal_string_class.new '030300' }

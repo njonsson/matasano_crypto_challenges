@@ -11,7 +11,9 @@ describe MatasanoCryptoChallenges::Set01::Challenge01 do
     }
 
     specify('returns the expected Base-64 string') {
-      expect(challenge_01.base64_encode(hexadecimal_string)).to eq('SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t')
+      actual = challenge_01.base64_encode(hexadecimal_string)
+      expect(actual).
+        to eq('SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t')
     }
   end
 end
