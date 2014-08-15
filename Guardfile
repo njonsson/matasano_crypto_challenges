@@ -1,7 +1,7 @@
 interactor :off
 
 guard :rspec, all_after_pass: true,
-              all_on_start:   false,
+              all_on_start:   true,
               failed_mode:    :keep,
               cmd: "bundle exec rspec --require pry-debugger --format progress" do
   # Run the corresponding spec (or all specs) when code changes.
