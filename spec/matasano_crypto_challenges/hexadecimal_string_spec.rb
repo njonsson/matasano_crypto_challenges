@@ -4,8 +4,14 @@ describe MatasanoCryptoChallenges::HexadecimalString do
   let(:hexadecimal_string_class) { described_class }
 
   describe '.from_bytes' do
+    subject(:from_bytes) { hexadecimal_string_class.from_bytes bytes }
+
+    let(:hexadecimal_string) { hexadecimal_string_class.new '010203' }
+
+    let(:bytes) { [1, 2, 3] }
+
     specify("returns the expected #{described_class.name}") {
-      expect(hexadecimal_string_class.from_bytes([1, 2, 3])).to eq(hexadecimal_string_class.new('010203'))
+      expect(from_bytes).to eq(hexadecimal_string)
     }
   end
 
@@ -40,28 +46,38 @@ describe MatasanoCryptoChallenges::HexadecimalString do
   end
 
   describe '#==' do
+    def hexadecimal_string(value)
+      hexadecimal_string_class.new value
+    end
+
     specify "recognizes equivalent #{described_class.name}s" do
-      expect(hexadecimal_string_class.new('foo')).to eq(hexadecimal_string_class.new('foo'))
+      expect(hexadecimal_string('foo')).to eq(hexadecimal_string('foo'))
     end
 
     specify "recognizes unequivalent #{described_class.name}s" do
-      expect(hexadecimal_string_class.new('foo')).not_to eq(hexadecimal_string_class.new('bar'))
+      expect(hexadecimal_string('foo')).not_to eq(hexadecimal_string('bar'))
     end
   end
 
   describe '#^' do
-    subject(:hexadecimal_string1) { hexadecimal_string_class.new '010201' }
+    subject(:xor) {
+      hexadecimal_string_class.new('010201') ^ hexadecimal_string_class.new('020101')
+    }
 
-    subject(:hexadecimal_string2) { hexadecimal_string_class.new '020101' }
+    let(:hexadecimal_string) { hexadecimal_string_class.new '030300' }
 
     specify("returns the expected #{described_class.name}") {
-      expect(hexadecimal_string1 ^ hexadecimal_string2).to eq(hexadecimal_string_class.new('030300'))
+      expect(xor).to eq(hexadecimal_string)
     }
   end
 
   describe '#to_bytes' do
-    specify 'returns the expected byte array' do
-      expect(hexadecimal_string_class.new('1234').to_bytes).to eq([18, 52])
-    end
+    subject(:to_bytes) { hexadecimal_string.to_bytes }
+
+    let(:hexadecimal_string) { hexadecimal_string_class.from_bytes bytes }
+
+    let(:bytes) { [1, 2, 3] }
+
+    specify('returns the expected byte array') { expect(to_bytes).to eq(bytes) }
   end
 end

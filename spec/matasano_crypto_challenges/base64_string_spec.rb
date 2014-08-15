@@ -4,8 +4,14 @@ describe MatasanoCryptoChallenges::Base64String do
   let(:base64_string_class) { described_class }
 
   describe '.from_bytes' do
+    subject(:from_bytes) { base64_string_class.from_bytes bytes }
+
+    let(:base64_string) { base64_string_class.new 'AQID' }
+
+    let(:bytes) { [1, 2, 3] }
+
     specify("returns the expected #{described_class.name}") {
-      expect(base64_string_class.from_bytes([1, 2, 3])).to eq(base64_string_class.new('AQID'))
+      expect(from_bytes).to eq(base64_string)
     }
   end
 
@@ -40,12 +46,16 @@ describe MatasanoCryptoChallenges::Base64String do
   end
 
   describe '#==' do
+    def base64_string(value)
+      base64_string_class.new value
+    end
+
     specify "recognizes equivalent #{described_class.name}s" do
-      expect(base64_string_class.new('foo')).to eq(base64_string_class.new('foo'))
+      expect(base64_string('foo')).to eq(base64_string('foo'))
     end
 
     specify "recognizes unequivalent #{described_class.name}s" do
-      expect(base64_string_class.new('foo')).not_to eq(base64_string_class.new('bar'))
+      expect(base64_string('foo')).not_to eq(base64_string('bar'))
     end
   end
 end
