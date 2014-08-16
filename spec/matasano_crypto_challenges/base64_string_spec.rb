@@ -58,4 +58,26 @@ describe MatasanoCryptoChallenges::Base64String do
       expect(base64_string('foo')).not_to eq(base64_string('bar'))
     end
   end
+
+  describe '#to_bytes' do
+    subject(:to_bytes) { base64_string.to_bytes }
+
+    let(:base64_string) { base64_string_class.from_bytes bytes }
+
+    let(:bytes) { [102, 111, 111] }
+
+    specify('returns the expected byte array') { expect(to_bytes).to eq(bytes) }
+  end
+
+  describe '#to_s' do
+    subject(:to_s) { base64_string.to_s }
+
+    let(:base64_string) { base64_string_class.from_bytes bytes }
+
+    let(:bytes) { string.bytes }
+
+    let(:string) { 'foo' }
+
+    specify('returns the expected string') { expect(to_s).to eq(string) }
+  end
 end

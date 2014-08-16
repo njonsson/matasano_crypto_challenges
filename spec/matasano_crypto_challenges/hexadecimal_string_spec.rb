@@ -19,30 +19,40 @@ describe MatasanoCryptoChallenges::HexadecimalString do
     subject(:hexadecimal_string) { hexadecimal_string_class.new '048bF' }
 
     specify { expect(hexadecimal_string).to be_valid }
+
+    specify { expect(hexadecimal_string.length).to eq(5) }
   end
 
   describe 'that is nil' do
     subject(:hexadecimal_string) { hexadecimal_string_class.new nil }
 
     specify { expect(hexadecimal_string).not_to be_valid }
+
+    specify { expect(hexadecimal_string.length).to eq(0) }
   end
 
   describe 'that is empty' do
     subject(:hexadecimal_string) { hexadecimal_string_class.new '' }
 
     specify { expect(hexadecimal_string).not_to be_valid }
+
+    specify { expect(hexadecimal_string.length).to eq(0) }
   end
 
   describe 'that contains whitespace' do
     subject(:hexadecimal_string) { hexadecimal_string_class.new '1 2' }
 
     specify { expect(hexadecimal_string).not_to be_valid }
+
+    specify { expect(hexadecimal_string.length).to eq(3) }
   end
 
   describe 'that contains nonhexadecimal characters' do
     subject(:hexadecimal_string) { hexadecimal_string_class.new '1!2' }
 
     specify { expect(hexadecimal_string).not_to be_valid }
+
+    specify { expect(hexadecimal_string.length).to eq(3) }
   end
 
   describe '#==' do
@@ -80,5 +90,17 @@ describe MatasanoCryptoChallenges::HexadecimalString do
     let(:bytes) { [1, 2, 3] }
 
     specify('returns the expected byte array') { expect(to_bytes).to eq(bytes) }
+  end
+
+  describe '#to_s' do
+    subject(:to_s) { hexadecimal_string.to_s }
+
+    let(:hexadecimal_string) { hexadecimal_string_class.from_bytes bytes }
+
+    let(:bytes) { string.bytes }
+
+    let(:string) { 'foo' }
+
+    specify('returns the expected string') { expect(to_s).to eq(string) }
   end
 end

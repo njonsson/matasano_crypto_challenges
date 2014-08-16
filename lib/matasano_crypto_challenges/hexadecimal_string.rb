@@ -24,12 +24,24 @@ class MatasanoCryptoChallenges::HexadecimalString
     self.class.from_bytes result_bytes
   end
 
+  def length
+    return 0 unless value
+
+    value.length
+  end
+
   def to_bytes
+    return [] unless value
+
     bytes = []
     value.chars.each_slice 2 do |nibbles|
       bytes << nibbles.join.to_i(16)
     end
     bytes
+  end
+
+  def to_s
+    to_bytes.collect(&:chr).join
   end
 
   def valid?
