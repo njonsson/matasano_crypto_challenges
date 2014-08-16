@@ -20,7 +20,9 @@ describe MatasanoCryptoChallenges::HexadecimalString do
 
     specify { expect(hexadecimal_string).to be_valid }
 
-    specify { expect(hexadecimal_string.length).to eq(5) }
+    specify('has expected #length') {
+      expect(hexadecimal_string.length).to eq(5)
+    }
   end
 
   describe 'that is nil' do
@@ -28,7 +30,9 @@ describe MatasanoCryptoChallenges::HexadecimalString do
 
     specify { expect(hexadecimal_string).not_to be_valid }
 
-    specify { expect(hexadecimal_string.length).to eq(0) }
+    specify('has expected #length') {
+      expect(hexadecimal_string.length).to eq(0)
+    }
   end
 
   describe 'that is empty' do
@@ -36,7 +40,9 @@ describe MatasanoCryptoChallenges::HexadecimalString do
 
     specify { expect(hexadecimal_string).not_to be_valid }
 
-    specify { expect(hexadecimal_string.length).to eq(0) }
+    specify('has expected #length') {
+      expect(hexadecimal_string.length).to eq(0)
+    }
   end
 
   describe 'that contains whitespace' do
@@ -44,7 +50,9 @@ describe MatasanoCryptoChallenges::HexadecimalString do
 
     specify { expect(hexadecimal_string).not_to be_valid }
 
-    specify { expect(hexadecimal_string.length).to eq(3) }
+    specify('has expected #length') {
+      expect(hexadecimal_string.length).to eq(3)
+    }
   end
 
   describe 'that contains nonhexadecimal characters' do
@@ -52,7 +60,9 @@ describe MatasanoCryptoChallenges::HexadecimalString do
 
     specify { expect(hexadecimal_string).not_to be_valid }
 
-    specify { expect(hexadecimal_string.length).to eq(3) }
+    specify('has expected #length') {
+      expect(hexadecimal_string.length).to eq(3)
+    }
   end
 
   describe '#==' do
@@ -60,11 +70,11 @@ describe MatasanoCryptoChallenges::HexadecimalString do
       hexadecimal_string_class.new value
     end
 
-    specify "recognizes equivalent #{described_class.name}s" do
+    specify "recognizes equivalent #{described_class.name} objects" do
       expect(hexadecimal_string('foo')).to eq(hexadecimal_string('foo'))
     end
 
-    specify "recognizes unequivalent #{described_class.name}s" do
+    specify "recognizes different #{described_class.name} objects" do
       expect(hexadecimal_string('foo')).not_to eq(hexadecimal_string('bar'))
     end
   end

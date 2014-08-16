@@ -39,7 +39,7 @@ describe MatasanoCryptoChallenges::Base64String do
     specify { expect(base64_string).not_to be_valid }
   end
 
-  describe 'that contains nonbase64 characters' do
+  describe 'that contains non-Base-64 characters' do
     subject(:base64_string) { base64_string_class.new '1!2' }
 
     specify { expect(base64_string).not_to be_valid }
@@ -50,11 +50,11 @@ describe MatasanoCryptoChallenges::Base64String do
       base64_string_class.new value
     end
 
-    specify "recognizes equivalent #{described_class.name}s" do
+    specify "recognizes equivalent #{described_class.name} objects" do
       expect(base64_string('foo')).to eq(base64_string('foo'))
     end
 
-    specify "recognizes unequivalent #{described_class.name}s" do
+    specify "recognizes different #{described_class.name} objects" do
       expect(base64_string('foo')).not_to eq(base64_string('bar'))
     end
   end
