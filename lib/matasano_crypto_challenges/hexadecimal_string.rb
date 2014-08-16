@@ -2,6 +2,8 @@ module MatasanoCryptChallenges; end
 
 class MatasanoCryptoChallenges::HexadecimalString
 
+  attr_accessor :normalcy_score
+
   attr_reader :value
 
   def self.from_bytes(bytes)
@@ -10,7 +12,8 @@ class MatasanoCryptoChallenges::HexadecimalString
   end
 
   def initialize(value)
-    @value = value
+    @normalcy_score = 0
+    @value          = value
   end
 
   def ==(other)

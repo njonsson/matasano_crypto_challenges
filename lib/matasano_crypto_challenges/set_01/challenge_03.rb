@@ -9,8 +9,7 @@ module MatasanoCryptoChallenges
 
       def cryptanalyze(hexadecimal_string)
         hexadecimal_string = HexadecimalString.new(hexadecimal_string)
-        ordered_guesses = single_byte_xor_cracker.guesses(hexadecimal_string)
-        result = ordered_guesses.first
+        result = single_byte_xor_cracker.crack(hexadecimal_string)
         result.value
       end
 
