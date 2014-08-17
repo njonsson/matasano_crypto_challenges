@@ -1,5 +1,5 @@
-require 'matasano_crypto_challenges/base64_string'
-require 'matasano_crypto_challenges/hexadecimal_string'
+require 'matasano_crypto_challenges/representations/base64'
+require 'matasano_crypto_challenges/representations/hexadecimal'
 
 module MatasanoCryptoChallenges
 
@@ -8,8 +8,8 @@ module MatasanoCryptoChallenges
     class Challenge01
 
       def base64_encode(hexadecimal_string)
-        hexadecimal_string = HexadecimalString.new(hexadecimal_string)
-        result = Base64String.from_bytes(hexadecimal_string.to_bytes)
+        hexadecimal = Representations::Hexadecimal.from_value(hexadecimal_string)
+        result = Representations::Base64.from_bytes(hexadecimal.bytes)
         result.value
       end
 

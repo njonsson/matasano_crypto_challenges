@@ -1,4 +1,4 @@
-require 'matasano_crypto_challenges/hexadecimal_string'
+require 'matasano_crypto_challenges/representations/hexadecimal'
 require 'matasano_crypto_challenges/single_byte_xor_cracker'
 
 module MatasanoCryptoChallenges
@@ -8,8 +8,8 @@ module MatasanoCryptoChallenges
     class Challenge03
 
       def cryptanalyze(hexadecimal_string)
-        hexadecimal_string = HexadecimalString.new(hexadecimal_string)
-        result = single_byte_xor_cracker.crack(hexadecimal_string)
+        hexadecimal = Representations::Hexadecimal.from_value(hexadecimal_string)
+        result = single_byte_xor_cracker.crack(hexadecimal)
         result.value
       end
 

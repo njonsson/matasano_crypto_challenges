@@ -1,4 +1,4 @@
-require 'matasano_crypto_challenges/hexadecimal_string'
+require 'matasano_crypto_challenges/representations/hexadecimal'
 
 module MatasanoCryptoChallenges
 
@@ -7,9 +7,9 @@ module MatasanoCryptoChallenges
     class Challenge02
 
       def xor(hexadecimal_string1, hexadecimal_string2)
-        hexadecimal_string1 = HexadecimalString.new(hexadecimal_string1)
-        hexadecimal_string2 = HexadecimalString.new(hexadecimal_string2)
-        result = hexadecimal_string1 ^ hexadecimal_string2
+        hexadecimal1 = Representations::Hexadecimal.from_value(hexadecimal_string1)
+        hexadecimal2 = Representations::Hexadecimal.from_value(hexadecimal_string2)
+        result = hexadecimal1 ^ hexadecimal2
         result.value
       end
 
