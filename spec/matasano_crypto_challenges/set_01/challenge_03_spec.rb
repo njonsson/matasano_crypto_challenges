@@ -17,7 +17,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge03 do
     }
 
     specify('returns the expected plaintext hexadecimal string') {
-      actual = challenge_03.cryptanalyze(ciphertext_hexadecimal_string)
+      actual = challenge_03.crack_single_byte_xor_key(ciphertext_hexadecimal_string)
       expect(actual).to eq(plaintext_hexadecimal_string)
     }
   end

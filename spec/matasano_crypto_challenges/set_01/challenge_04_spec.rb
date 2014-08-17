@@ -344,7 +344,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge04 do
     }
 
     specify('returns the expected plaintext hexadecimal string') {
-      actual = challenge_04.find_and_cryptanalyze(ciphertext_hexadecimal_strings)
+      actual = challenge_04.find_and_crack_single_byte_xor_key(ciphertext_hexadecimal_strings)
       expect(actual).to eq(plaintext_hexadecimal_string)
     }
   end
