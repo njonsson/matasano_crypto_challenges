@@ -1,4 +1,3 @@
-
 require 'matasano_crypto_challenges/set_01/challenge_04'
 
 describe MatasanoCryptoChallenges::Set01::Challenge04 do
