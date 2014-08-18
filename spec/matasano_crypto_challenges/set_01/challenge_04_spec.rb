@@ -6,7 +6,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge04 do
 
   let(:challenge_04_class) { described_class }
 
-  describe '#cryptanalyze' do
+  describe '#find_and_crack_single_byte_xor_key' do
     let(:ciphertext_hexadecimal_strings) {
       %w(0e3647e8592d35514a081243582536ed3de6734059001e3f535ce6271032
          334b041de124f73c18011a50e608097ac308ecee501337ec3e100854201d
