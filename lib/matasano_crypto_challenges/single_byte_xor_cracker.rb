@@ -10,12 +10,12 @@ module MatasanoCryptoChallenges
       @normally_frequent_bytes = Array(normally_frequent_bytes)
     end
 
-    def crack(hexadecimal)
+    def crack(representation)
       best = Representations::Hexadecimal.from_bytes([])
       1.upto 255 do |key_seed|
         key = Representations::Hexadecimal.from_bytes([key_seed] *
-                                                      hexadecimal.bytes.length)
-        guess = (hexadecimal ^ key)
+                                                      representation.bytes.length)
+        guess = (representation ^ key)
         if best.normalcy_score < (guess.normalcy_score = normalcy_score(guess))
           best = guess
         end
@@ -25,9 +25,9 @@ module MatasanoCryptoChallenges
 
   private
 
-    def frequent_bytes(hexadecimal)
+    def frequent_bytes(representation)
       table = {}
-      hexadecimal.bytes.each do |b|
+      representation.bytes.each do |b|
         table[b] = table[b].to_i + 1
       end
       table.to_a.
@@ -37,9 +37,9 @@ module MatasanoCryptoChallenges
             slice 0, normally_frequent_bytes.length
     end
 
-    def normalcy_score(hexadecimal)
+    def normalcy_score(representation)
       normally_frequent_bytes.length -
-        (frequent_bytes(hexadecimal) - normally_frequent_bytes).length
+        (frequent_bytes(representation) - normally_frequent_bytes).length
     end
 
   end
