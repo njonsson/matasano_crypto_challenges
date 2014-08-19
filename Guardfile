@@ -11,6 +11,9 @@ guard :rspec, all_after_pass: true,
   # Run a spec when it changes.
   watch %r{^spec/.+_spec\.rb$}
 
+  # Run all specs when a shared spec changes.
+  watch(%r{^spec/.+_sharedspec\.rb$}) { 'spec' }
+
   # Run all specs when the RSpec configuration changes.
   watch('.rspec'             ) { 'spec' }
   watch('spec/spec_helper.rb') { 'spec' }
