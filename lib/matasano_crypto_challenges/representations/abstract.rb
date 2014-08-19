@@ -22,16 +22,12 @@ class MatasanoCryptoChallenges::Representations::Abstract
     new value: value
   end
 
-private
-
   def initialize(attributes={})
     @bytes          = attributes[:bytes]
     @normalcy_score = attributes[:normalcy_score] || 0
     @string         = attributes[:string]
     @value          = attributes[:value]
   end
-
-public
 
   def ==(other)
     other.kind_of?(self.class) &&
