@@ -31,7 +31,7 @@ module MatasanoCryptoChallenges
         table[b] = table[b].to_i + 1
       end
       table.to_a.
-            sort { |left, right| left.last <=> right.last }.
+            sort_by(&:last).
             reverse.
             collect(&:first).
             slice 0, normally_frequent_bytes.length
