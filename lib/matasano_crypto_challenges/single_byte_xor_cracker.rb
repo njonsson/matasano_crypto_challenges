@@ -1,45 +1,27 @@
-require 'matasano_crypto_challenges/representations/hexadecimal'
+require 'matasano_crypto_challenges/frequency_analyzer'
+require 'matasano_crypto_challenges/util'
 
 module MatasanoCryptoChallenges
 
   class SingleByteXorCracker
 
-    attr_reader :normally_frequent_bytes
-
-    def initialize(normally_frequent_bytes=' etaoinshrdlu'.bytes)
-      @normally_frequent_bytes = Array(normally_frequent_bytes)
-    end
-
     def crack(representation)
-      best = Representations::Hexadecimal.from_bytes([])
+      best = {normalcy_score: 0}
       1.upto 255 do |key_seed|
-        key = Representations::Hexadecimal.from_bytes([key_seed] *
-                                                      representation.bytes.length)
-        guess = (representation ^ key)
-        if best.normalcy_score < (guess.normalcy_score = normalcy_score(guess))
-          best = guess
-        end
+        plaintext_representation = Util.decrypt(content_representation: representation,
+                                                key:                    key_seed)
+        guess = {plaintext_representation: plaintext_representation,
+                 key:                      key_seed,
+                 normalcy_score:           frequency_analyzer.normalcy_score(plaintext_representation)}
+        best = guess if best[:normalcy_score] < guess[:normalcy_score]
       end
       best
     end
 
   private
 
-    def frequent_bytes(representation)
-      table = {}
-      representation.bytes.each do |b|
-        table[b] = table[b].to_i + 1
-      end
-      table.to_a.
-            sort_by(&:last).
-            reverse.
-            collect(&:first).
-            slice 0, normally_frequent_bytes.length
-    end
-
-    def normalcy_score(representation)
-      normally_frequent_bytes.length -
-        (frequent_bytes(representation) - normally_frequent_bytes).length
+    def frequency_analyzer
+      @frequency_analyzer ||= FrequencyAnalyzer.new
     end
 
   end

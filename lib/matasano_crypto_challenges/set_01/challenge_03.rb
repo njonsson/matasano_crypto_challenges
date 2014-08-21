@@ -10,7 +10,7 @@ module MatasanoCryptoChallenges
       def crack_single_byte_xor_key(hexadecimal_string)
         hexadecimal = Representations::Hexadecimal.from_value(hexadecimal_string)
         result = single_byte_xor_cracker.crack(hexadecimal)
-        result.value
+        result[:plaintext_representation].value
       end
 
     private

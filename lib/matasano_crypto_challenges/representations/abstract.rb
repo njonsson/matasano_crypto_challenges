@@ -6,8 +6,6 @@ end
 
 class MatasanoCryptoChallenges::Representations::Abstract
 
-  attr_accessor :normalcy_score
-
   attr_reader :value
 
   def self.from_bytes(bytes)
@@ -23,10 +21,9 @@ class MatasanoCryptoChallenges::Representations::Abstract
   end
 
   def initialize(attributes={})
-    @bytes          = attributes[:bytes]
-    @normalcy_score = attributes[:normalcy_score] || 0
-    @string         = attributes[:string]
-    @value          = attributes[:value]
+    @bytes  = attributes[:bytes]
+    @string = attributes[:string]
+    @value  = attributes[:value]
   end
 
   def ==(other)
@@ -43,12 +40,22 @@ class MatasanoCryptoChallenges::Representations::Abstract
     self.class.from_bytes result_bytes
   end
 
+  def bits
+    bytes.collect do |b|
+      b.to_s(2).rjust(8, '0').split('').collect(&:to_i)
+    end.flatten
+  end
+
   def bytes
     return @bytes if @bytes
 
     return nil unless @string
 
     @bytes = @string.bytes
+  end
+
+  def hamming_distance(other)
+    (self ^ other).bits.inject(&:+)
   end
 
   def string

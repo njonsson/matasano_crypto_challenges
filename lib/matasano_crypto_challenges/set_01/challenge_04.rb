@@ -8,12 +8,13 @@ module MatasanoCryptoChallenges
     class Challenge04
 
       def find_and_crack_single_byte_xor_key(hexadecimal_strings)
-        result = Representations::Hexadecimal.from_bytes([])
+        best = {normalcy_score: 0}
         hexadecimal_strings.each do |hexadecimal_string|
           hexadecimal = Representations::Hexadecimal.from_value(hexadecimal_string)
           guess = single_byte_xor_cracker.crack(hexadecimal)
-          result = guess if result.normalcy_score < guess.normalcy_score
+          best = guess if best[:normalcy_score] < guess[:normalcy_score]
         end
+        result = best[:plaintext_representation]
         result.value
       end
 

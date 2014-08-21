@@ -88,6 +88,20 @@ shared_examples_for "a subclass of #{MatasanoCryptoChallenges::Representations::
     }
   end
 
+  describe '#bits' do
+    subject(:bits) { expected.bits }
+
+    let(:expected_bits) { [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] }
+
+    let(:expected) { described_class.new bytes: expected_bytes }
+
+    let(:expected_bytes) { [1, 2] }
+
+    specify('returns the expected bit array') {
+      expect(bits).to eq(expected_bits)
+    }
+  end
+
   describe '#bytes' do
     subject(:bytes) { expected.bytes }
 
@@ -108,6 +122,18 @@ shared_examples_for "a subclass of #{MatasanoCryptoChallenges::Representations::
         expect(bytes).to eq(expected_bytes)
       }
     end
+  end
+
+  describe '#hamming_distance' do
+    subject(:hamming_distance) {
+      described_class.from_string('this is a test').hamming_distance described_class.from_string('wokka wokka!!!')
+    }
+
+    let(:expected) { 37 }
+
+    specify('returns the expected result') {
+      expect(hamming_distance).to eq(expected)
+    }
   end
 
   describe '#string' do
