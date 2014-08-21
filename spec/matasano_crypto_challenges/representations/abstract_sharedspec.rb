@@ -136,6 +136,72 @@ shared_examples_for "a subclass of #{MatasanoCryptoChallenges::Representations::
     }
   end
 
+  describe '#pad_pkcs7' do
+    describe 'with block_size' do
+      let(:representation) { described_class.new string: string }
+
+      let(:string) { 'foo' }
+
+      describe 'less than zero' do
+        specify('raises the expected error') {
+          expect {
+            representation.pad_pkcs7 -1
+          }.to raise_error(ArgumentError, 'block_size must be in 1..255')
+        }
+      end
+
+      describe 'of zero' do
+        specify('raises the expected error') {
+          expect {
+            representation.pad_pkcs7 0
+          }.to raise_error(ArgumentError, 'block_size must be in 1..255')
+        }
+      end
+
+      describe 'that is positive' do
+        subject(:pad_pkcs7) { representation.pad_pkcs7 block_size }
+
+        describe 'but lesser than content size' do
+          let(:string) { 'foo' }
+
+          let(:block_size) { 2 }
+
+          let(:expected_representation) { described_class.from_string "foo\x01" }
+
+          specify("returns the expected #{described_class.name}") {
+            expect(pad_pkcs7).to eq(expected_representation)
+          }
+        end
+
+        describe 'and equal to content size' do
+          let(:string) { 'foo' }
+
+          let(:block_size) { 3 }
+
+          let(:expected_representation) { described_class.from_string 'foo' }
+
+          specify("returns the expected #{described_class.name}") {
+            expect(pad_pkcs7).to eq(expected_representation)
+          }
+        end
+
+        describe 'and greater than content size' do
+          let(:string) { 'foo' }
+
+          let(:block_size) { 5 }
+
+          let(:expected_representation) {
+            described_class.from_string "foo\x02\x02"
+          }
+
+          specify("returns the expected #{described_class.name}") {
+            expect(pad_pkcs7).to eq(expected_representation)
+          }
+        end
+      end
+    end
+  end
+
   describe '#string' do
     subject(:string) { expected.string }
 

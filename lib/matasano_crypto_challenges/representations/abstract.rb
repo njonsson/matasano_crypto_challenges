@@ -6,6 +6,8 @@ end
 
 class MatasanoCryptoChallenges::Representations::Abstract
 
+  VALID_BLOCK_SIZE = (1..255).freeze
+
   attr_reader :value
 
   def self.from_bytes(bytes)
@@ -56,6 +58,20 @@ class MatasanoCryptoChallenges::Representations::Abstract
 
   def hamming_distance(other)
     (self ^ other).bits.inject(&:+)
+  end
+
+  def pad_pkcs7(block_size)
+    unless VALID_BLOCK_SIZE.include?(block_size)
+      raise ArgumentError, "block_size must be in #{VALID_BLOCK_SIZE.inspect}"
+    end
+
+    number_of_padding_bytes = (block_size < bytes.length)     ?
+                              bytes.length.modulo(block_size) :
+                              (block_size - bytes.length)
+    return self.dup if number_of_padding_bytes.zero?
+
+    padding = [number_of_padding_bytes] * number_of_padding_bytes
+    self.class.from_bytes(bytes + padding)
   end
 
   def string
