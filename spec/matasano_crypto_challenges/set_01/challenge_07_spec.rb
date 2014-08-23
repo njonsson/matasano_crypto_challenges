@@ -6,7 +6,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge07 do
 
   let(:challenge_07_class) { described_class }
 
-  describe '#crack_multibyte_xor_key' do
+  describe '#decrypt_aes128_ecb' do
     let(:ciphertext_base64_string) {
       <<-end_ciphertext_base64_string.gsub(/\s+/, '')
         CRIwqt4+szDbqkNY+I0qbDe3LQz0wiw0SuxBQtAM5TDdMbjCMD/venUDW9BLPEXODbk6a48oM
