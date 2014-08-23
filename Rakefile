@@ -23,10 +23,26 @@ end
 define_spec_task :spec, desc: 'Run specs'
 
 namespace :spec do
-  uncommitted_specs = `git ls-files --modified --others *_spec.rb`.split("\n")
-  desc = 'Run uncommitted specs'
-  desc += ' (none)' if uncommitted_specs.empty?
-  define_spec_task :uncommitted, desc: desc, pattern: uncommitted_specs
+  uncommitted_files_in_spec = `git ls-files --modified --others spec/* spec/**/*`.split("\n")
+  uncommitted_spec_files = `git ls-files --modified --others spec/*_spec.rb spec/**/*_spec.rb`.split("\n")
+  nonspec_uncommitted_files_in_spec = uncommitted_files_in_spec -
+                                      uncommitted_spec_files
+  if nonspec_uncommitted_files_in_spec.empty?
+    if uncommitted_spec_files.empty?
+      desc 'Run uncommitted specs (none)'
+      task :uncommitted do
+        puts 'No uncommitted specs to run'
+      end
+    else
+      noun_phrase = "#{uncommitted_spec_files.length} uncommitted spec file#{(uncommitted_spec_files.length == 1) ? nil : 's'}"
+      desc = "Run #{noun_phrase}"
+      define_spec_task :uncommitted, desc: desc, pattern: uncommitted_spec_files
+    end
+  else
+    noun_phrase = "#{uncommitted_files_in_spec.length} uncommitted file#{uncommitted_files_in_spec.length == 1 ? nil : 's'}"
+    desc = "Run all specs because of #{noun_phrase} in 'spec'"
+    define_spec_task :uncommitted, desc: desc, pattern: 'spec'
+  end
 end
 
 desc 'Run specs'
