@@ -5,7 +5,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge04 do
 
   let(:challenge_04_class) { described_class }
 
-  describe '#find_and_crack_single_byte_xor_key' do
+  describe '#find_and_crack_single_byte_xor' do
     let(:ciphertext_hexadecimal_strings) {
       %w(0e3647e8592d35514a081243582536ed3de6734059001e3f535ce6271032
          334b041de124f73c18011a50e608097ac308ecee501337ec3e100854201d
@@ -343,7 +343,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge04 do
     let(:expected_plaintext) { "Now that the party is jumping\n" }
 
     specify('returns the expected plaintext hexadecimal string') {
-      actual = challenge_04.find_and_crack_single_byte_xor_key(ciphertext_hexadecimal_strings)
+      actual = challenge_04.find_and_crack_single_byte_xor(ciphertext_hexadecimal_strings)
       expect(actual).to eq(expected_plaintext_hexadecimal_string)
     }
   end

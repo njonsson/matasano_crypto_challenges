@@ -6,7 +6,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge06 do
 
   let(:challenge_06_class) { described_class }
 
-  describe '#crack_multibyte_xor_key' do
+  describe '#crack_multibyte_xor' do
     let(:ciphertext_base64_string) {
       <<-end_ciphertext_base64_string.gsub(/\s+/, '')
         HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVSBgBHVBwNRU0HB
@@ -154,7 +154,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge06 do
     }
 
     specify('returns the expected plaintext Base-64 string') {
-      actual = challenge_06.crack_multibyte_xor_key(ciphertext_base64_string)
+      actual = challenge_06.crack_multibyte_xor(ciphertext_base64_string)
       expect(actual).to eq(expected_plaintext_base64_string)
     }
   end
