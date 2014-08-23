@@ -227,7 +227,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge08 do
       expected_ciphertext_hexadecimal_string
     }
 
-    specify('returns the expected plaintext hexadecimal string') {
+    specify('returns the expected index') {
       actual = challenge_08.index_of_aes128_ecb(ciphertext_hexadecimal_strings)
       expect(actual).not_to be_nil
       expect(actual).to eq(expected_ciphertext_index)
