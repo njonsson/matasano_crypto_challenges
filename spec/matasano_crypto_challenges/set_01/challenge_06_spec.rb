@@ -65,8 +65,12 @@ describe MatasanoCryptoChallenges::Set01::Challenge06 do
       end_ciphertext_base64_string
     }
 
-    let(:plaintext) {
-      <<-end_plaintext.gsub(/^ +/, '').chomp
+    let(:expected_plaintext_base64_string) {
+      MatasanoCryptoChallenges::Representations::Base64.from_string(expected_plaintext).value
+    }
+
+    let(:expected_plaintext) {
+      <<-end_expected_plaintext.gsub(/^ +/, '').chomp
         I'm back and I'm ringin' the bell 
         A rockin' on the mike while the fly girls yell 
         In ecstasy in the back of me 
@@ -146,16 +150,12 @@ describe MatasanoCryptoChallenges::Set01::Challenge06 do
         Play that funky music A little louder now 
         Play that funky music, white boy Come on, Come on, Come on 
         Play that funky music
-      end_plaintext
-    }
-
-    let(:plaintext_base64_string) {
-      MatasanoCryptoChallenges::Representations::Base64.from_string(plaintext).value
+      end_expected_plaintext
     }
 
     specify('returns the expected plaintext Base-64 string') {
       actual = challenge_06.crack_multibyte_xor_key(ciphertext_base64_string)
-      expect(actual).to eq(plaintext_base64_string)
+      expect(actual).to eq(expected_plaintext_base64_string)
     }
   end
 end

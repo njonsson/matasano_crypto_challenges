@@ -7,13 +7,18 @@ describe MatasanoCryptoChallenges::Set01::Challenge01 do
 
   describe '#base64_encode' do
     let(:hexadecimal_string) {
-      '49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d'
+      string.bytes.collect { |b| b.to_s(16).rjust 2, '0' }.join
+    }
+
+    let(:string) { "I'm killing your brain like a poisonous mushroom" }
+
+    let(:expected_base64_string) {
+      'SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t'
     }
 
     specify('returns the expected Base-64 string') {
       actual = challenge_01.base64_encode(hexadecimal_string)
-      expect(actual).
-        to eq('SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t')
+      expect(actual).to eq(expected_base64_string)
     }
   end
 end

@@ -336,15 +336,15 @@ describe MatasanoCryptoChallenges::Set01::Challenge04 do
          32042f46431d2c44607934ed180c1028136a5f2b26092e3b2c4e2930585a)
     }
 
-    let(:plaintext) { "Now that the party is jumping\n" }
-
-    let(:plaintext_hexadecimal_string) {
-      plaintext.bytes.collect { |b| b.to_s(16).rjust 2, '0' }.join
+    let(:expected_plaintext_hexadecimal_string) {
+      expected_plaintext.bytes.collect { |b| b.to_s(16).rjust 2, '0' }.join
     }
+
+    let(:expected_plaintext) { "Now that the party is jumping\n" }
 
     specify('returns the expected plaintext hexadecimal string') {
       actual = challenge_04.find_and_crack_single_byte_xor_key(ciphertext_hexadecimal_strings)
-      expect(actual).to eq(plaintext_hexadecimal_string)
+      expect(actual).to eq(expected_plaintext_hexadecimal_string)
     }
   end
 end
