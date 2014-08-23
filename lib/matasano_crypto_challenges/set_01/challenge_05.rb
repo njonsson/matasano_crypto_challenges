@@ -14,8 +14,8 @@ module MatasanoCryptoChallenges
                                  key_hexadecimal_string: nil)
         plaintext_hexadecimal = Representations::Hexadecimal.from_value(plaintext_hexadecimal_string)
         key_bytes = Representations::Hexadecimal.from_value(key_hexadecimal_string).bytes
-        result = Util.decrypt(content_representation: plaintext_hexadecimal,
-                              key: key_bytes)
+        result = Util.xor_with_repeating_key(content_representation: plaintext_hexadecimal,
+                                             key: key_bytes)
         result.value
       end
 

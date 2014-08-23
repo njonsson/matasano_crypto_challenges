@@ -21,8 +21,8 @@ module MatasanoCryptoChallenges
         block_representations = demux(representation: representation,
                                       block_size:     key_size)
         key = crack_key_from_blocks(block_representations)
-        plaintext_representation = Util.decrypt(content_representation: representation,
-                                                key:                    key)
+        plaintext_representation = Util.xor_with_repeating_key(content_representation: representation,
+                                                               key:                    key)
         guess = {plaintext_representation: plaintext_representation,
                  key:                      key,
                  normalcy_score:           frequency_analyzer.normalcy_score(plaintext_representation)}
