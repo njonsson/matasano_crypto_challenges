@@ -1,6 +1,6 @@
 # The MIT License
 
-Source code for my solutions to the
+Source code for the accompanying solutions to the
 [Matasano Crypto Challenges][Matasano-Crypto-Challenges] is Copyright © 2014
 [Nils Jonsson][mailto-Nils-Jonsson].
 
