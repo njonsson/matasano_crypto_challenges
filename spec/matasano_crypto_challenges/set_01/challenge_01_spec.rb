@@ -18,6 +18,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge01 do
 
     specify('returns the expected Base-64 string') {
       actual = challenge_01.base64_encode(hexadecimal_string)
+      expect(actual).not_to be_nil
       expect(actual).to eq(expected_base64_string)
     }
   end

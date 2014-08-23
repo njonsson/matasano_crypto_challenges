@@ -25,6 +25,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge02 do
     specify('returns the expected plaintext hexadecimal string') {
       actual = challenge_02.xor(ciphertext_hexadecimal_string,
                                 key_hexadecimal_string)
+      expect(actual).not_to be_nil
       expect(actual).to eq(expected_plaintext_hexadecimal_string)
     }
   end

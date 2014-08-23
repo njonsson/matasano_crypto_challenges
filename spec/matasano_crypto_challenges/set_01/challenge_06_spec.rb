@@ -155,6 +155,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge06 do
 
     specify('returns the expected plaintext Base-64 string') {
       actual = challenge_06.crack_multibyte_xor(ciphertext_base64_string)
+      expect(actual).not_to be_nil
       expect(actual).to eq(expected_plaintext_base64_string)
     }
   end

@@ -158,6 +158,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge07 do
     specify('returns the expected plaintext Base-64 string') {
       actual = challenge_07.decrypt_aes128_ecb(ciphertext_base64_string: ciphertext_base64_string,
                                                key_string:               key)
+      expect(actual).not_to be_nil
       expect(actual).to eq(expected_plaintext_base64_string)
     }
   end

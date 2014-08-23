@@ -34,6 +34,7 @@ describe MatasanoCryptoChallenges::Set01::Challenge05 do
     specify('returns the expected ciphertext hexadecimal string') {
       actual = challenge_05.xor_with_repeating_key(plaintext_hexadecimal_string: plaintext_hexadecimal_string,
                                                    key_hexadecimal_string:       key_hexadecimal_string)
+      expect(actual).not_to be_nil
       expect(actual).to eq(expected_ciphertext_hexadecimal_string)
     }
   end
