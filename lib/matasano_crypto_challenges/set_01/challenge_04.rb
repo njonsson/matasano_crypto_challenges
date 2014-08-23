@@ -21,7 +21,7 @@ module MatasanoCryptoChallenges
     private
 
       def single_byte_xor_cracker
-        @single_byte_xor_cracker ||= SingleByteXorCracker.new
+        @single_byte_xor_cracker ||= SingleByteXORCracker.new
       end
 
     end

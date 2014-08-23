@@ -3,7 +3,7 @@ require 'matasano_crypto_challenges/util'
 
 module MatasanoCryptoChallenges
 
-  class SingleByteXorCracker
+  class SingleByteXORCracker
 
     def crack(representation)
       best = {normalcy_score: 0}

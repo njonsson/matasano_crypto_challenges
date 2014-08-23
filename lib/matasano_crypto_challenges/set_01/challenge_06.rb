@@ -16,7 +16,7 @@ module MatasanoCryptoChallenges
     private
 
       def multibyte_xor_cracker
-        MultibyteXorCracker.new
+        MultibyteXORCracker.new
       end
 
     end

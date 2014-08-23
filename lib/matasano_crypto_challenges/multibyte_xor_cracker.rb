@@ -7,7 +7,7 @@ using MatasanoCryptoChallenges::Refinements::Array
 
 module MatasanoCryptoChallenges
 
-  class MultibyteXorCracker
+  class MultibyteXORCracker
 
     attr_reader :key_sizes
 
@@ -39,7 +39,7 @@ module MatasanoCryptoChallenges
     MAXIMUM_NUMBER_OF_LIKELY_KEY_SIZES = 5
 
     def crack_key_from_blocks(block_representations)
-      cracker = SingleByteXorCracker.new
+      cracker = SingleByteXORCracker.new
       block_representations.collect do |block_representation|
         cracked = cracker.crack(block_representation)
         cracked[:key]
