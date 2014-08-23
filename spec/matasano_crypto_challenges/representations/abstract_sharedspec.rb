@@ -137,31 +137,41 @@ shared_examples_for "a subclass of #{MatasanoCryptoChallenges::Representations::
   end
 
   describe '#pad_pkcs7' do
-    describe 'with block_size' do
+    describe 'with block_size that is' do
       let(:representation) { described_class.new string: string }
 
       let(:string) { 'foo' }
 
-      describe 'less than zero' do
-        specify('raises the expected error') {
-          expect {
-            representation.pad_pkcs7 -1
-          }.to raise_error(ArgumentError, 'block_size must be in 1..255')
-        }
+      describe 'illegal by being' do
+        describe 'less than zero' do
+          specify('raises the expected error') {
+            expect {
+              representation.pad_pkcs7 -1
+            }.to raise_error(ArgumentError, 'block_size must be in 1..255')
+          }
+        end
+
+        describe 'zero' do
+          specify('raises the expected error') {
+            expect {
+              representation.pad_pkcs7 0
+            }.to raise_error(ArgumentError, 'block_size must be in 1..255')
+          }
+        end
+
+        describe 'greater than 255' do
+          specify('raises the expected error') {
+            expect {
+              representation.pad_pkcs7 256
+            }.to raise_error(ArgumentError, 'block_size must be in 1..255')
+          }
+        end
       end
 
-      describe 'of zero' do
-        specify('raises the expected error') {
-          expect {
-            representation.pad_pkcs7 0
-          }.to raise_error(ArgumentError, 'block_size must be in 1..255')
-        }
-      end
-
-      describe 'that is positive' do
+      describe 'legal and' do
         subject(:pad_pkcs7) { representation.pad_pkcs7 block_size }
 
-        describe 'but lesser than content size' do
+        describe 'lesser than content size' do
           let(:string) { 'foo' }
 
           let(:block_size) { 2 }
@@ -173,7 +183,7 @@ shared_examples_for "a subclass of #{MatasanoCryptoChallenges::Representations::
           }
         end
 
-        describe 'and equal to content size' do
+        describe 'equal to content size' do
           let(:string) { 'foo' }
 
           let(:block_size) { 3 }
@@ -185,7 +195,7 @@ shared_examples_for "a subclass of #{MatasanoCryptoChallenges::Representations::
           }
         end
 
-        describe 'and greater than content size' do
+        describe 'greater than content size' do
           let(:string) { 'foo' }
 
           let(:block_size) { 5 }
