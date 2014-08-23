@@ -10,7 +10,7 @@ module MatasanoCryptoChallenges
       def decrypt_aes128_ecb(ciphertext_base64_string: nil, key_string: nil)
         ciphertext_base64 = Representations::Base64.from_value(ciphertext_base64_string)
         result = Util.decrypt_aes128_ecb(ciphertext_representation: ciphertext_base64,
-                                         key: key_string.bytes)
+                                         key_bytes: key_string.bytes)
         result.value
       end
 

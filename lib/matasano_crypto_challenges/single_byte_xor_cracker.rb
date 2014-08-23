@@ -9,7 +9,7 @@ module MatasanoCryptoChallenges
       best = {normalcy_score: 0}
       1.upto 255 do |key_seed|
         plaintext_representation = Util.xor_with_repeating_key(content_representation: representation,
-                                                               key:                    key_seed)
+                                                               key_bytes:              key_seed)
         guess = {plaintext_representation: plaintext_representation,
                  key:                      key_seed,
                  normalcy_score:           frequency_analyzer.normalcy_score(plaintext_representation)}

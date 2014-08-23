@@ -20,15 +20,15 @@ module MatasanoCryptoChallenges
       likely_key_sizes(representation).each do |key_size|
         block_representations = demux(representation: representation,
                                       block_size:     key_size)
-        key = crack_key_from_blocks(block_representations)
+        key_bytes = crack_key_from_blocks(block_representations)
         plaintext_representation = Util.xor_with_repeating_key(content_representation: representation,
-                                                               key:                    key)
+                                                               key_bytes:              key_bytes)
         guess = {plaintext_representation: plaintext_representation,
-                 key:                      key,
+                 key_bytes:                key_bytes,
                  normalcy_score:           frequency_analyzer.normalcy_score(plaintext_representation)}
         best = guess if best[:normalcy_score] < guess[:normalcy_score]
       end
-      best[:key_representation] = representation.class.from_bytes(best.delete(:key))
+      best[:key_representation] = representation.class.from_bytes(best.delete(:key_bytes))
       best
     end
 
