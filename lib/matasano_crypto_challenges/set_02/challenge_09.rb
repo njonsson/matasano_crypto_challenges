@@ -4,7 +4,7 @@ module MatasanoCryptoChallenges
 
   module Set02
 
-    class Challenge01
+    class Challenge09
 
       def pkcs7_pad(content: nil, block_size: nil)
         content_hexadecimal = Representations::Hexadecimal.from_string(content)
